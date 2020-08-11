@@ -1,5 +1,8 @@
 bin/
 obj/
+lib/
 
 .wakatime-project
 .vscode/
+
+ignore/
