@@ -3,7 +3,7 @@
 Use Antlr grammars to generate TypeScript code from Groovy source.
 With this side project I wanted to learn a little bit more about Antlr grammars and code generation.
 
-Additionally, my company could seemed like they wanted something like this.
+Additionally, my company seemed like they wanted something like this.
 
 
 ## General Idea
