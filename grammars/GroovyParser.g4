@@ -31,10 +31,10 @@
 /**
  * A Groovy grammar for ANTLR 4 derived from https://github.com/antlr/grammars-v4/blob/master/java/java8/Java8Parser.g4
  */
-parser grammar GroovyParser;
+parser grammar GroovyParser;                                                                            // Java8Parser => GroovyParser
 
 options {
-    tokenVocab=GroovyLexer;
+    tokenVocab=GroovyLexer;                                                                             // Java8Lexer => GroovyLexer
 }
 /*
  * Productions from §3 (Lexical Structure)
@@ -207,11 +207,11 @@ ambiguousName
  */
 
 compilationUnit
-	:	packageDeclaration? importDeclaration* typeDeclaration* EOF
+ 	:	packageDeclaration? importDeclaration* typeDeclaration* EOF
 	;
 
 packageDeclaration
-	:	packageModifier* 'package' packageName ';'
+	:	packageModifier* 'package' packageName ';'?                                         // optional ';'
 	;
 
 packageModifier
@@ -226,19 +226,19 @@ importDeclaration
 	;
 
 singleTypeImportDeclaration
-	:	'import' typeName ';'
+	:	'import' typeName ';'?                                                              // optional ';'
 	;
 
 typeImportOnDemandDeclaration
-	:	'import' packageOrTypeName '.' '*' ';'
+	:	'import' packageOrTypeName '.' '*' ';'?                                             // optional ';'
 	;
 
 singleStaticImportDeclaration
-	:	'import' 'static' typeName '.' Identifier ';'
+	:	'import' 'static' typeName '.' Identifier ';'?                                      // optional ';'
 	;
 
 staticImportOnDemandDeclaration
-	:	'import' 'static' typeName '.' '*' ';'
+	:	'import' 'static' typeName '.' '*' ';'?                                             // optional ';'
 	;
 
 typeDeclaration
@@ -311,7 +311,7 @@ classMemberDeclaration
 	;
 
 fieldDeclaration
-	:	fieldModifier* unannType variableDeclaratorList ';'
+	:	fieldModifier* unannType variableDeclaratorList ';'?                                            // optional ';'
 	;
 
 fieldModifier
@@ -512,10 +512,10 @@ constructorBody
 	;
 
 explicitConstructorInvocation
-	:	typeArguments? 'this' '(' argumentList? ')' ';'
-	|	typeArguments? 'super' '(' argumentList? ')' ';'
-	|	expressionName '.' typeArguments? 'super' '(' argumentList? ')' ';'
-	|	primary '.' typeArguments? 'super' '(' argumentList? ')' ';'
+	:	typeArguments? 'this' '(' argumentList? ')' ';'?                                                // optional ';'
+	|	typeArguments? 'super' '(' argumentList? ')' ';'?                                               // optional ';'
+	|	expressionName '.' typeArguments? 'super' '(' argumentList? ')' ';'?                            // optional ';'
+	|	primary '.' typeArguments? 'super' '(' argumentList? ')' ';'?                                   // optional ';'
 	;
 
 enumDeclaration
@@ -582,7 +582,7 @@ interfaceMemberDeclaration
 	;
 
 constantDeclaration
-	:	constantModifier* unannType variableDeclaratorList ';'
+	:	constantModifier* unannType variableDeclaratorList ';'?                                         // optional ';'
 	;
 
 constantModifier
@@ -622,7 +622,7 @@ annotationTypeMemberDeclaration
 	;
 
 annotationTypeElementDeclaration
-	:	annotationTypeElementModifier* unannType Identifier '(' ')' dims? defaultValue? ';'
+	:	annotationTypeElementModifier* unannType Identifier '(' ')' dims? defaultValue? ';'?            // optional ';'
 	;
 
 annotationTypeElementModifier
@@ -706,7 +706,7 @@ blockStatement
 	;
 
 localVariableDeclarationStatement
-	:	localVariableDeclaration ';'
+	:	localVariableDeclaration ';'?                                                                   // optional ';'
 	;
 
 localVariableDeclaration
@@ -758,7 +758,7 @@ labeledStatementNoShortIf
 	;
 
 expressionStatement
-	:	statementExpression ';'
+	:	statementExpression ';'?                                                                        // optional ';'
 	;
 
 statementExpression
@@ -784,8 +784,8 @@ ifThenElseStatementNoShortIf
 	;
 
 assertStatement
-	:	'assert' expression ';'
-	|	'assert' expression ':' expression ';'
+	:	'assert' expression ';'?                                                                        // optional ';'
+	|	'assert' expression ':' expression ';'?                                                         // optional ';'
 	;
 
 switchStatement
@@ -823,7 +823,7 @@ whileStatementNoShortIf
 	;
 
 doStatement
-	:	'do' statement 'while' '(' expression ')' ';'
+	:	'do' statement 'while' '(' expression ')' ';'?                                                  // optional ';'
 	;
 
 forStatement
@@ -866,19 +866,19 @@ enhancedForStatementNoShortIf
 	;
 
 breakStatement
-	:	'break' Identifier? ';'
+	:	'break' Identifier? ';'?                                                                        // optional ';'
 	;
 
 continueStatement
-	:	'continue' Identifier? ';'
+	:	'continue' Identifier? ';'?                                                                     // optional ';'
 	;
 
 returnStatement
-	:	'return' expression? ';'
+	:	'return' expression? ';'?                                                                       // optional ';'
 	;
 
 throwStatement
-	:	'throw' expression ';'
+	:	'throw' expression ';'?                                                                         // optional ';'
 	;
 
 synchronizedStatement

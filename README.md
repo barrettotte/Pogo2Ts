@@ -8,9 +8,9 @@ Additionally, my company seemed like they wanted something like this.
 
 
 ## General Idea
-* Lex and parse Groovy source using Antlr4
-* Walk through generated AST
-* Write TypeScript source
+* Lex and parse POGOs using Antlr4
+* Walk through each generated AST
+* Generate TypeScript source for each POGO
 
 
 ## Groovy Grammars
@@ -19,7 +19,7 @@ However, I found out the Parrot parser for Groovy uses a fork of Antlr4 (https:/
 This means that the official Antlr4 grammars don't work out of the box with the official Antlr4 jar.
 
 
-After a lot of screwing around with trying to build the fork from https://github.com/tunnelvisionlabs/antlr4 
+After a lot of screwing around with trying to build the fork from https://github.com/tunnelvisionlabs/antlr4 ,
 I decided I would just modify the existing Antlr4 Java8 grammars at https://github.com/antlr/grammars-v4/tree/master/java/java8 since Groovy is just a superset of Java. 
 
 
@@ -27,36 +27,22 @@ Since I'm really just trying to convert POGOs, I will be skipping over the follo
 * Closures
 * Metaprogramming
 * All the cool Groovy string literal stuff - (interpolation, GStrings, etc)
+* Probably much more...
 
-My EBNF/Antlr4 is not strong enough to tackle these. If coerced enough I'd probably dive back in.
-
-
-Grammar Resources:
-* Groovy Language Documentation - https://docs.groovy-lang.org/latest/html/documentation/
-* Groovy Syntax - https://groovy-lang.org/syntax.html
-* Groovy Style Guide - https://groovy-lang.org/style-guide.html
-
+My EBNF/Antlr is not strong enough to tackle these yet. If coerced enough I'd probably dive back in.
 
 I will reiterate, this is for converting POGOs and is nowhere near a full converter.
 **If I missed something absolutely critical, please open an issue!**
 
 
-
 ## Setup (Windows)
 * Download Antlr4 jar - https://www.antlr.org/download/antlr-4.8-complete.jar
 * Add Antlr4 jar to CLASSPATH system variable
-  * System Properties > Environment Variables > CLASSPATH  (create if doesn't exist)
+  * System Properties > Environment Variables > CLASSPATH  (create if it doesn't exist)
   * Example: CLASSPATH = ```C:\Antlr4\antlr-4.8-complete.jar```
-
-Add antlr4 batch script to PATH -> EX: ```C:\Antlr4\antlr4.bat```
-```batch
-java org.antlr.v4.Tool %*
-```
-
-
-## Commands
-* Generate Lexer -  ```antlr4 grammars/GroovyLexer.g4 -Dlanguage=CSharp -o Groovy2TS\generated\Groovy -encoding UTF-8```
-* Generate Parser - ```antlr4 -visitor grammars/GroovyParser.g4 -Dlanguage=CSharp -o Groovy2TS\generated\Groovy -encoding UTF-8```
+* Create ```C:\Antlr4\antlr4.bat``` with the content ```java org.antlr.v4.Tool %*``` and add to PATH
+* Generate lexer and parser using ```generate.bat```
+* Run program with ```dotnet run <directory_path>```
 
 
 ## References
@@ -64,3 +50,7 @@ java org.antlr.v4.Tool %*
 * The Definitive ANTLR4 Reference - https://pragprog.com/book/tpantlr2/the-definitive-antlr-4-reference
 * Apache Groovy - https://github.com/apache/groovy
 * Antlr4 Grammars - https://github.com/antlr/grammars-v4
+* Groovy Grammar Resources
+  * Groovy Language Documentation - https://docs.groovy-lang.org/latest/html/documentation/
+  * Groovy Syntax - https://groovy-lang.org/syntax.html
+  * Groovy Style Guide - https://groovy-lang.org/style-guide.html

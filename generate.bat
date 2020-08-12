@@ -9,7 +9,7 @@ WHERE antlr4 >nul 2>nul
 IF %ERRORLEVEL% EQU 1 GOTO :NOTFOUND
 
 antlr4 %GRAMMAR_LOC%\%LANG%Lexer.g4 -Dlanguage=CSharp -o %GENERATE_LOC% -encoding UTF-8 ^
-  & antlr4 -visitor %GRAMMAR_LOC%\%LANG%Parser.g4 -Dlanguage=CSharp -o %GENERATE_LOC% -encoding UTF-8
+  && antlr4 -visitor %GRAMMAR_LOC%\%LANG%Parser.g4 -Dlanguage=CSharp -o %GENERATE_LOC% -encoding UTF-8
 
 :NOTFOUND
   ECHO Could not find 'antlr4' in PATH.
