@@ -1,7 +1,16 @@
 @ECHO OFF
 REM Generate lexer/parser using Antlr4 grammars
 
-REM TODO: check if antlr4 command exists
+SET LANG=Groovy
+SET GRAMMAR_LOC=grammars
+SET GENERATE_LOC=Pogo2Ts\generated\Groovy
 
-antlr4 grammars/GroovyLexer.g4 -Dlanguage=CSharp -o Groovy2TS\generated\Groovy -encoding UTF-8 ^
-  & antlr4 -visitor grammars/GroovyParser.g4 -Dlanguage=CSharp -o Groovy2TS\generated\Groovy -encoding UTF-8
+WHERE antlr4 >nul 2>nul
+IF %ERRORLEVEL% EQU 1 GOTO :NOTFOUND
+
+antlr4 %GRAMMAR_LOC%\%LANG%Lexer.g4 -Dlanguage=CSharp -o %GENERATE_LOC% -encoding UTF-8 ^
+  & antlr4 -visitor %GRAMMAR_LOC%\%LANG%Parser.g4 -Dlanguage=CSharp -o %GENERATE_LOC% -encoding UTF-8
+
+:NOTFOUND
+  ECHO Could not find 'antlr4' in PATH.
+  GOTO:EOF

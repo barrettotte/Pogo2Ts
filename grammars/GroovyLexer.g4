@@ -333,7 +333,7 @@ SingleCharacter
 
 StringLiteral
 	:	'"' StringCharacters? '"'
-  : '\'' StringCharacters? '\''                               // added - TODO: check if this screws up CharacterLiteral ...
+    | '\'' StringCharacters? '\''                             // added - TODO: check if this screws up CharacterLiteral ...
 	;
 
 fragment
@@ -443,7 +443,6 @@ SAFE_DOT : '?.';                                              //
 SAFE_CHAIN_DOT : '??.';                                       //
 ELVIS : '?:';                                                 //
 METHOD_PTR : '.&';                                            //
-METHOD_REF : '::';                                            //
 REGEX_FIND : '=~';                                            //
 REGEX_MATCH : '==~';                                          //
 SPACESHIP : '<=>';                                            //

@@ -1,9 +1,9 @@
 # Pogo2Ts
 
 Use Antlr grammars to generate TypeScript models from POGOs (Plain Old Groovy Objects).
-With this side project I wanted to learn a little bit more about Antlr grammars and code generation.
-Unfortunately, Groovy was a terrible choice to learn with as you'll see below.
 
+
+With this side project I wanted to learn a little bit more about Antlr grammars and code generation.
 Additionally, my company seemed like they wanted something like this.
 
 
@@ -23,13 +23,15 @@ After a lot of screwing around with trying to build the fork from https://github
 I decided I would just modify the existing Antlr4 Java8 grammars at https://github.com/antlr/grammars-v4/tree/master/java/java8 since Groovy is just a superset of Java. 
 
 
-Since I'm really just trying to convert POGOs, I will be skipping over the following (unless coerced into diving back in):
+Since I'm really just trying to convert POGOs, I will be skipping over the following items:
 * Closures
 * Metaprogramming
 * All the cool Groovy string literal stuff - (interpolation, GStrings, etc)
 
+My EBNF/Antlr4 is not strong enough to tackle these. If coerced enough I'd probably dive back in.
 
-I will try my best to include enough for minimally functional Groovy grammars using the following resources:
+
+Grammar Resources:
 * Groovy Language Documentation - https://docs.groovy-lang.org/latest/html/documentation/
 * Groovy Syntax - https://groovy-lang.org/syntax.html
 * Groovy Style Guide - https://groovy-lang.org/style-guide.html
