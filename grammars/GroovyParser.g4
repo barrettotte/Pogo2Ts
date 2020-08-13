@@ -56,6 +56,7 @@ literal
 primitiveType
 	:	annotation* numericType
 	|	annotation* 'boolean'
+    |   annotation* DEF                                                                                 // added
 	;
 
 numericType
@@ -181,6 +182,7 @@ packageName
 typeName
 	:	Identifier
 	|	packageOrTypeName '.' Identifier
+    |   DEF                                                                                             // added
 	;
 
 packageOrTypeName
@@ -350,6 +352,7 @@ unannType
 unannPrimitiveType
 	:	numericType
 	|	'boolean'
+    |   DEF                                                                                             // added
 	;
 
 unannReferenceType

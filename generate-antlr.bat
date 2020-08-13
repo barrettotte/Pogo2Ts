@@ -1,7 +1,7 @@
 @ECHO OFF
 REM Generate lexer/parser using Antlr4 grammars
 
-SET GEN_LOC=Pogo2Ts\generated
+SET GEN_LOC=Pogo2Ts\Antlr
 
 WHERE antlr4 >nul 2>nul
 IF %ERRORLEVEL% EQU 1 GOTO :NOTFOUND
