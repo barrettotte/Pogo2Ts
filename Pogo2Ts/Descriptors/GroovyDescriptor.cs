@@ -3,22 +3,22 @@ using System.Collections.Generic;
 
 namespace Pogo2Ts{
 
-    public class GroovyFileDescriptor{
+    public class GroovyDescriptor{
 
         public string FileName {get; set;}
         public PackageDescriptor Package {get; set;}
         public List<ImportDescriptor> Imports {get; set;}
-        public List<ClassDescriptor> Classes {get; set;}
+        public List<TypeDescriptor> Types {get; set;}
 
-        public GroovyFileDescriptor(){
+        public GroovyDescriptor(){
             Imports = new List<ImportDescriptor>();
-            Classes = new List<ClassDescriptor>();
+            Types = new List<TypeDescriptor>();
         }
 
         public override string ToString(){
             string importNames = String.Join("\n  - ", Imports);
-            string classNames = String.Join("\n  - ", Classes);
-            return $"File      => {FileName}\nPackage   => {Package}\nImport(s) => {importNames}\nClasse(s) => {classNames}";
+            string typeNames = String.Join("\n  - ", Types);
+            return $"File      => {FileName}\nPackage   => {Package}\nImport(s) => {importNames}\nType(s) => {typeNames}";
         } 
 
     }

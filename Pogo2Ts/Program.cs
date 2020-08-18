@@ -12,28 +12,26 @@ namespace Pogo2Ts{
             }
             var groovyFile = ParseGroovyFile(args[0]);
 
-            Console.WriteLine(groovyFile);
-
-            // Groovy File => [package, import(s), classe(s)]
-            // TODO: interfaces? enums?
+            //Console.WriteLine(groovyFile);
         }
 
-        static GroovyFileDescriptor ParseGroovyFile(string srcPath){
-            GroovyFileDescriptor groovyFile = new GroovyFileDescriptor();
-            groovyFile.FileName = Path.GetFullPath(srcPath);
+        static GroovyDescriptor ParseGroovyFile(string srcPath){
+            GroovyDescriptor descriptor = new GroovyDescriptor();
+            descriptor.FileName = Path.GetFullPath(srcPath);
 
             ICharStream src = CharStreams.fromPath(srcPath);
             GroovyLexer lexer = new GroovyLexer(src);
             CommonTokenStream stream = new CommonTokenStream(lexer);
+
             GroovyParser parser = new GroovyParser(stream);
-
             var tree = parser.compilationUnit();
-            CompilationUnitVisitor visitor = new CompilationUnitVisitor();
-            
-            groovyFile.Package = visitor.VisitPackageDeclaration(tree.packageDeclaration());
-            groovyFile.Imports = visitor.VisitImportDeclarations(tree.importDeclaration());
 
-            return groovyFile;
+            GroovyVisitor visitor = new GroovyVisitor();
+            visitor.VisitCompilationUnit(tree);
+            
+            Console.WriteLine(visitor.groovyDescriptor);
+
+            return descriptor;
         }
     }
 }
