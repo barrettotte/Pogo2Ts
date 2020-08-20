@@ -4,17 +4,16 @@ namespace Pogo2Ts{
 
     public class PackageDescriptor{
         
-        public List<string> PackageModifiers { get; set; }
-        public string PackageName { get; set; }
+        public List<string> Modifiers  { get; set; }
+        public string Path             { get; set; }
 
         public PackageDescriptor(){
-            PackageModifiers = new List<string>();
+            Modifiers = new List<string>();
         }
 
         public override string ToString(){
-            // TODO: PackageModifiers? 
-            return PackageName;
+            // TODO: modifiers? 
+            return Path;
         }
-
     }
 }
