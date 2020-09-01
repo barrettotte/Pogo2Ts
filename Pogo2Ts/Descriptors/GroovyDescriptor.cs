@@ -16,8 +16,12 @@ namespace Pogo2Ts{
         }
 
         public override string ToString(){
-            string importNames = String.Join("\n  - ", Imports);
             string typeNames = String.Join("\n  - ", Types);
+            string importNames = "";
+
+            foreach(var i in Imports){
+                importNames += ("\n  - " + i.ToString());
+            }
             return $"File      => {FileName}\nPackage   => {Package}\nImport(s) => {importNames}\nType(s) => {typeNames}";
         }
     }

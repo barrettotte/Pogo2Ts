@@ -7,9 +7,10 @@ namespace Pogo2Ts{
         public GroovyDescriptor groovyDescriptor = new GroovyDescriptor();
 
 
+
         public override object VisitPackageDeclaration(PackageDeclarationContext context){
             PackageDescriptor descriptor = new PackageDescriptor();
-            
+
             foreach(var modifier in context.packageModifier()){
                 descriptor.Modifiers.Add(modifier.GetText());
             }
@@ -19,6 +20,7 @@ namespace Pogo2Ts{
             return base.VisitPackageDeclaration(context);
         }
 
+
         public override object VisitImportDeclaration(ImportDeclarationContext context){
             ImportDescriptor descriptor = new ImportDescriptor();
             descriptor.Import = context.GetText().Substring(6);  // skip over 'import'
@@ -26,6 +28,7 @@ namespace Pogo2Ts{
 
             return base.VisitImportDeclaration(context);
         }
+
 
         public override object VisitNormalClassDeclaration(NormalClassDeclarationContext context){
             TypeDescriptor descriptor = new TypeDescriptor();
@@ -37,18 +40,46 @@ namespace Pogo2Ts{
             }
             descriptor.Type = "class";
             descriptor.Identifier = context.Identifier().GetText();
-            descriptor.SuperClasses.Add(context.superclass().classType().GetText());
 
-            SuperinterfacesContext implements = context.superinterfaces();
-            if(implements != null){
-                foreach(var interfaceContext in implements.interfaceTypeList().interfaceType()){
+            if(context.superclass() != null){
+                descriptor.SuperClasses.Add(context.superclass().classType().GetText());
+            }
+            if(context.superinterfaces() != null){
+                foreach(var interfaceContext in context.superinterfaces().interfaceTypeList().interfaceType()){
                     descriptor.SuperInterfaces.Add(interfaceContext.classType().GetText());
                 }
+            }
+
+            foreach(var classBody in context.classBody().classBodyDeclaration()){
+                var member = classBody.classMemberDeclaration();
+                var fieldDeclare = member.fieldDeclaration();
+
+                if(fieldDeclare != null){
+                    var field = new FieldDescriptor();
+
+                    foreach(var modifier in fieldDeclare.fieldModifier()){
+                        field.Modifiers.Add(modifier.GetText());
+                    }
+                    field.Type = fieldDeclare.unannType().GetText();
+
+                    var identifiers = fieldDeclare.variableDeclaratorList().variableDeclarator();
+                    field.Identifier = identifiers[0].variableDeclaratorId().GetText();
+                    if(identifiers[0].variableInitializer() != null){
+                        field.Assignment = identifiers[0].variableInitializer().GetText();   
+                    }
+                    descriptor.Fields.Add(field);
+                }
+
+                // Not dealing with these right now ...
+                var methodDeclare = member.methodDeclaration();
+                var classDeclare = member.classDeclaration();
+                var interfaceDeclare = member.interfaceDeclaration();
             }
             groovyDescriptor.Types.Add(descriptor);
 
             return base.VisitNormalClassDeclaration(context);
         }
+
 
         public override object VisitNormalInterfaceDeclaration(NormalInterfaceDeclarationContext context){
             TypeDescriptor descriptor = new TypeDescriptor();
@@ -68,6 +99,7 @@ namespace Pogo2Ts{
 
             return base.VisitNormalInterfaceDeclaration(context);
         }
+
 
         public override object VisitEnumDeclaration(EnumDeclarationContext context){
             TypeDescriptor descriptor = new TypeDescriptor();
