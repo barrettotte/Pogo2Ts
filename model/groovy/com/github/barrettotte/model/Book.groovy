@@ -1,7 +1,7 @@
-package com.github.barrettotte.groovy.model
+package com.github.barrettotte.model
 
-import com.github.barrettotte.groovy.model.common.Person
-import com.github.barrettotte.groovy.model.common.Thing
+import com.github.barrettotte.model.common.Person
+import com.github.barrettotte.model.common.Thing
 
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonInclude.Include

@@ -1,16 +1,14 @@
 # Pogo2Ts
 
 Use Antlr grammars to generate TypeScript models from POGOs (Plain Old Groovy Objects).
-
-
 With this side project I wanted to learn a little bit more about Antlr grammars and code generation.
-Additionally, my company seemed like they wanted something like this.
 
 
 ## General Idea
 * Lex and parse POGOs using Antlr4
 * Walk through each generated AST
 * Generate TypeScript source for each POGO
+
 
 
 ## Groovy Grammars
@@ -43,6 +41,10 @@ I will reiterate, this is for converting POGOs and is nowhere near a full conver
 * Create ```C:\Antlr4\antlr4.bat``` with the content ```java org.antlr.v4.Tool %*``` and add to PATH
 * Generate lexer and parser using ```generate.bat```
 * Run program with ```dotnet run <directory_path>```
+
+
+## Usage
+* Run example files - ```dotnet run ../model/groovy ../model/ts com.github.barrettotte.model```
 
 
 ## References

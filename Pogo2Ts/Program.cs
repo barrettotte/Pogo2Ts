@@ -6,14 +6,17 @@ namespace Pogo2Ts{
 
     class Program{
 
-
         static void Main(string[] args){
-            if(args.Length == 0){
-                throw new ArgumentException("No arguments passed. <POGO-DIR>");
+            if(args.Length < 3){
+                throw new ArgumentException("Not enough arguments passed. <POGO-DIR> <TS-DIR> <BASE-PACKAGE>");
             }
-            var groovyFile = ParseGroovyFile(args[0]);
+            // example: ```dotnet run ../model/groovy ../model/ts com.github.barrettotte.model```
 
-            //Console.WriteLine(groovyFile);
+            string[] fileNames = Directory.GetFiles(args[0], "*.groovy", SearchOption.AllDirectories);
+            foreach(string f in fileNames){
+                TypeScriptGenerator generator = new TypeScriptGenerator(args[1]);
+                generator.Generate(ParseGroovyFile(f), args[2]);
+            }
         }
 
         static GroovyDescriptor ParseGroovyFile(string srcPath){
@@ -29,8 +32,6 @@ namespace Pogo2Ts{
 
             GroovyDescriptor descriptor = visitor.groovyDescriptor;
             descriptor.FileName = Path.GetFullPath(srcPath);
-
-            Console.WriteLine(descriptor);
 
             return descriptor;
         }

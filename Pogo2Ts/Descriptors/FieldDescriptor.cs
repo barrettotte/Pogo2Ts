@@ -17,7 +17,8 @@ namespace Pogo2Ts{
 
         public override string ToString(){
             string mods = String.Join(" ", Modifiers);
-            return $"{mods} {Type} {Identifier} {Assignment}";
+            string assign = (Assignment != null && Assignment.Length > 0) ? ("= " + Assignment) : Assignment;
+            return $"{mods} {Type} {Identifier} {assign}";
         }
     }
 }
