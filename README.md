@@ -4,11 +4,14 @@ Use Antlr grammars to generate TypeScript models from POGOs (Plain Old Groovy Ob
 With this side project I wanted to learn a little bit more about Antlr grammars and code generation.
 
 
+This is kind of just a toy and would need a pretty good amount of work to be considered usable.
+I just wanted have some fun with this and get a simple case working.
+
+
 ## General Idea
 * Lex and parse POGOs using Antlr4
 * Walk through each generated AST
 * Generate TypeScript source for each POGO
-
 
 
 ## Groovy Grammars
@@ -28,9 +31,6 @@ Since I'm really just trying to convert POGOs, I will be skipping over the follo
 * Probably much more...
 
 My EBNF/Antlr is not strong enough to tackle these yet. If coerced enough I'd probably dive back in.
-
-I will reiterate, this is for converting POGOs and is nowhere near a full converter.
-**If I missed something absolutely critical, please open an issue!**
 
 
 ## Setup (Windows)
