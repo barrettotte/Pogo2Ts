@@ -7,4 +7,6 @@ lib/
 
 ignore/
 
-Pogo2Ts/Antlr
+# Antlr generated files
+src/Antlr
+grammars/.antlr

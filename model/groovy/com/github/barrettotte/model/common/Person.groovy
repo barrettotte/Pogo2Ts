@@ -9,4 +9,5 @@ class Person extends Thing{
     String firstName
     String lastName
     Integer age
+    Date birthday
 }

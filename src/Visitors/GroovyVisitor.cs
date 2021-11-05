@@ -6,8 +6,6 @@ namespace Pogo2Ts{
 
         public GroovyDescriptor groovyDescriptor = new GroovyDescriptor();
 
-
-
         public override object VisitPackageDeclaration(PackageDeclarationContext context){
             PackageDescriptor descriptor = new PackageDescriptor();
 
@@ -20,22 +18,20 @@ namespace Pogo2Ts{
             return base.VisitPackageDeclaration(context);
         }
 
-
         public override object VisitImportDeclaration(ImportDeclarationContext context){
             ImportDescriptor descriptor = new ImportDescriptor();
-            descriptor.Import = context.GetText().Substring(6);  // skip over 'import'
+            descriptor.Import = context.GetText().Substring(6);  // skip import declarations
             groovyDescriptor.Imports.Add(descriptor);
 
             return base.VisitImportDeclaration(context);
         }
-
 
         public override object VisitNormalClassDeclaration(NormalClassDeclarationContext context){
             TypeDescriptor descriptor = new TypeDescriptor();
 
             foreach(var modifier in context.classModifier()){
                 if(modifier.annotation() == null){
-                    descriptor.Modifiers.Add(modifier.GetText()); // skip over annotations
+                    descriptor.Modifiers.Add(modifier.GetText()); // skip class-level annotations
                 }
             }
             descriptor.Type = "class";
@@ -58,7 +54,9 @@ namespace Pogo2Ts{
                     var field = new FieldDescriptor();
 
                     foreach(var modifier in fieldDeclare.fieldModifier()){
-                        field.Modifiers.Add(modifier.GetText());
+                        if(modifier.annotation() == null){
+                            field.Modifiers.Add(modifier.GetText()); // skip field-level annotations
+                        }
                     }
                     field.Type = fieldDeclare.unannType().GetText();
 
@@ -80,7 +78,6 @@ namespace Pogo2Ts{
             return base.VisitNormalClassDeclaration(context);
         }
 
-
         public override object VisitNormalInterfaceDeclaration(NormalInterfaceDeclarationContext context){
             TypeDescriptor descriptor = new TypeDescriptor();
 
@@ -99,7 +96,6 @@ namespace Pogo2Ts{
 
             return base.VisitNormalInterfaceDeclaration(context);
         }
-
 
         public override object VisitEnumDeclaration(EnumDeclarationContext context){
             TypeDescriptor descriptor = new TypeDescriptor();
@@ -122,6 +118,5 @@ namespace Pogo2Ts{
 
             return base.VisitEnumDeclaration(context);
         }
-
     }
 }

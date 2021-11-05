@@ -68,15 +68,17 @@ namespace Pogo2Ts{
             string[] strings  = {"String", "Char", "char"};
             string[] numerics = {"byte", "Byte", "Short", "short", "Integer", "int", "Long", "long", "Float", "float", "Double", "double", "BigDecimal"};
 
-            if(groovy.StartsWith("List<")){
+            if (groovy.StartsWith("List<")){
                 return ConvertGroovyType(groovy.Substring(groovy.IndexOf('<') + 1, (groovy.IndexOf('>') - groovy.IndexOf('<')) - 1)) + "[]";
-            } else if(groovy.Contains("[")){
+            } else if (groovy.Contains("[")){
                 return ConvertGroovyType(groovy.Substring(0, groovy.IndexOf('[')));
-            } else if(groovy == "Boolean"){
+            } else if (groovy.Equals("Boolean")){
                 return "boolean";
-            } else if(Array.Exists(strings, x => x == groovy)){
+            } else if (Array.Exists(strings, x => x == groovy)){
                 return "string";
-            } else if(Array.Exists(numerics, x => x == groovy)){
+            } else if (groovy.Equals("Date") || groovy.Equals("DateTime")) {
+                return "Date";
+            } else if (Array.Exists(numerics, x => x == groovy)){
                 return "number";
             }
             return groovy;
